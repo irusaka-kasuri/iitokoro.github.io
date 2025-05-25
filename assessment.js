@@ -26,8 +26,38 @@ assessmentButton.addEventListener(
     tweetDivision.innerText = ``;//divタグを空文字で上書き
     console.log(assessment(userName));//ログを出力して確認
 
+    // X投稿ボタンの作成
+    tweetDivision.innerText = '';
+    const anchor = document.createElement('a');
+    const hrefValue =
+      'https://twitter.com/intent/tweet?button_hashtag=' +
+      encodeURIComponent('あなたのいいところ') +
+      '&ref_src=twsrc%5Etfw';
+
+    anchor.setAttribute('href', hrefValue);
+    anchor.setAttribute('class', 'twitter-hashtag-button');
+    anchor.setAttribute('data-text', result);
+    anchor.innerText = 'Tweet #あなたのいいところ';
+
+    tweetDivision.appendChild(anchor);
+
+
+    const script = document.createElement('script');
+    script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
+    tweetDivision.appendChild(script);tweetDivision.appendChild(script);//divの子要素として追加
   }
 )
+
+userNameInput.addEventListener(
+  'keydown',
+  (event) => {
+    if(event.code === 'Enter') {
+      // TODO Enter が押されたときに実行する処理
+      assessmentButton.dispatchEvent(new Event('click'));
+    }
+  }
+)
+
 const answers = [
   '###userName###のいいところは声です。###userName###の特徴的な声は皆を惹きつけ、心に残ります。',
   '###userName###のいいところはまなざしです。###userName###に見つめられた人は、気になって仕方がないでしょう。',
